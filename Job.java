@@ -2,38 +2,36 @@
  */
 public class Job{
     //instance variables
-    int runtime;
+    double runtime;
     int cost;
-    int arrivalTime;
+    double arrivalTime;
     boolean performIO;
     int numIOs;
     int priority; //if positive then uses priority, -1 is no priority
 
-    public Job(int runtime, int arrival_time, boolean performIO, int numIOs){
-        runtime = runtime;
-        arrivalTime = arrival_time;
-        performIO = performIO;
-        numIOs = numIOs;
-
-        cost = runtime + numIOs;
-        priority = -1;
+    public Job(double runtime, double arrival_time, boolean performIO, int numIOs){
+        this.runtime = runtime;
+        this.arrivalTime = arrival_time;
+        this.performIO = performIO;
+        this.numIOs = numIOs;
+        this.cost = numIOs;
+        this.priority = -1;
     }
 
-    public Job(int runtime, int arrival_time, boolean performIO, int numIOs, int priority){
-        runtime = runtime;
-        arrivalTime = arrival_time;
-        performIO = performIO;
-        numIOs = numIOs;
-
-        cost = runtime + numIOs;
-        priority = priority;
+    public Job(double runtime, double arrival_time, boolean performIO, int numIOs, int priority){
+        this.runtime = runtime;
+        this.arrivalTime = arrival_time;
+        this.performIO = performIO;
+        this.numIOs = numIOs;
+        this.cost = numIOs;
+        this.priority = priority;
     }
 
-    public int getRunTime(){
+    public double getRunTime(){
         return this.runtime;
     }
 
-    public int getArrivalTime(){
+    public double getArrivalTime(){
         return this.arrivalTime;
     }
 
@@ -53,11 +51,11 @@ public class Job{
         return this.priority;
     }
 
-    public void setRunTime(int run_time){
+    public void setRunTime(double run_time){
         this.runtime = run_time;
     }
 
-    public void setArrivalTime(int arrival_time){
+    public void setArrivalTime(double arrival_time){
         this.arrivalTime = arrival_time;
     }
 
@@ -86,5 +84,4 @@ public class Job{
         System.out.println(jobby1.getPriority());
     
     }
-
 }
