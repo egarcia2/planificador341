@@ -1,13 +1,14 @@
 /**
-algorithm for FIFO */
+algorithm for Shortest Job First */
 import java.util.*;
 
-public class Fifo{
 
-    Job[] joblist = new Job[10];
+public class SJF{
+
+    ArrayList<Job> joblist = new ArrayList<Job>(10); 
 
 
-    public Fifo(Job[] joblist){
+    public SJF(ArrayList<Job> joblist){
         this.joblist = joblist;
     }
 
@@ -15,25 +16,22 @@ public class Fifo{
         System.out.println("implement sortJobs");
     }
 
-    public void run() {
-        
-    }
-
     public static void main (String[] args) {
-        Job jobby1 = new Job(4, 1, false, 0);
-        Job jobby2 = new Job(2.25, 2, false, 0);
-        Job jobby3 = new Job(3, 15, false, 0);
-        Job jobby4 = new Job(1.75, 16, false, 0);
         
-        Job[] jobArray = {jobby1, jobby2, jobby3, jobby4};
 
-        // call sort jobs
+        joblist.add(new Job(5, 2, false, 0));
+        joblist.add(new Job(4, 2, false, 0));
+        joblist.add(new Job(1, 3, false, 0));
+        joblist.add(new Job(5, 3, false, 0));
+        joblist.add(new Job(1, 10, false, 0));
+        
+        // call sort jobs 
 
         Clock clock1 = new Clock();
 
         //add the arrival time 
         clock1.addTime(jobArray[0].getArrivalTime());
-            
+           
         for(int i = 0; i<4; i++) {
             Job jobi = jobArray[i];
             double arriveTime = jobi.getArrivalTime();
