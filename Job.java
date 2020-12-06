@@ -27,6 +27,10 @@ public class Job{
         this.priority = priority;
     }
 
+    public String toString(){
+        return "[Job: " + runtime + ", " + arrivalTime + ", " +  cost + ", " + performIO + ", " + numIOs + ", " + priority + " ]";
+    }
+
     public double getRunTime(){
         return this.runtime;
     }
