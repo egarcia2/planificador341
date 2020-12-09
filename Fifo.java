@@ -13,7 +13,7 @@ public class Fifo{
     }
 
     public void sortJobs() {
-        System.out.println("implement sortJobs");
+        //System.out.println("implement sortJobs");
     }
 
     public void run() {
@@ -38,12 +38,27 @@ public class Fifo{
     }
 
     public static void main (String[] args) {
-        Job jobby1 = new Job(4, 1, false, 0);
-        Job jobby2 = new Job(2.25, 2, false, 0);
-        Job jobby3 = new Job(3, 15, false, 0);
-        Job jobby4 = new Job(1.75, 16, false, 0);
+        // Job jobby1 = new Job(4, 1, false, 0);
+        // Job jobby2 = new Job(2.25, 2, false, 0);
+        // Job jobby3 = new Job(3, 15, false, 0);
+        // Job jobby4 = new Job(1.75, 16, false, 0);
         
-        Job[] jobArray = {jobby1, jobby2, jobby3, jobby4};
+        // Job[] jobArray = {jobby1, jobby2, jobby3, jobby4};
+
+        // // call sort jobs
+        // Fifo fifo1 = new Fifo(jobArray);
+
+        // fifo1.run();
+        // System.out.println("Finished running Fifo at " + fifo1.getScheduleTime() + "\n");
+        
+        
+        Job jobby1 = new Job(5, 2, false, 0);
+        Job jobby2 = new Job(4, 2, false, 0);
+        Job jobby3 = new Job(1, 3, false, 0);
+        Job jobby4 = new Job(5, 3, false, 0);
+        Job jobby5 = new Job(1, 10, false, 0);
+        
+        Job[] jobArray = {jobby1, jobby2, jobby3, jobby4, jobby5};
 
         // call sort jobs
         Fifo fifo1 = new Fifo(jobArray);

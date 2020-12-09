@@ -3,6 +3,7 @@
 public class Job{
     //instance variables
     double runtime;
+    double remainingRuntime; 
     int cost;
     double arrivalTime;
     boolean performIO;
@@ -11,6 +12,7 @@ public class Job{
 
     public Job(double runtime, double arrival_time, boolean performIO, int numIOs){
         this.runtime = runtime;
+        this.remainingRuntime = runtime; 
         this.arrivalTime = arrival_time;
         this.performIO = performIO;
         this.numIOs = numIOs;
@@ -20,6 +22,7 @@ public class Job{
 
     public Job(double runtime, double arrival_time, boolean performIO, int numIOs, int priority){
         this.runtime = runtime;
+        this.remainingRuntime = runtime; 
         this.arrivalTime = arrival_time;
         this.performIO = performIO;
         this.numIOs = numIOs;
@@ -33,6 +36,10 @@ public class Job{
 
     public double getRunTime(){
         return this.runtime;
+    }
+
+    public double getRemainingRunTime(){
+        return this.remainingRuntime;
     }
 
     public double getArrivalTime(){
@@ -57,6 +64,10 @@ public class Job{
 
     public void setRunTime(double run_time){
         this.runtime = run_time;
+    }
+
+    public void setRemainingRunTime(double run_time){
+        this.remainingRuntime = run_time;
     }
 
     public void setArrivalTime(double arrival_time){

@@ -14,7 +14,7 @@ public class SJF{
     }
 
     public void sortJobs() {
-        System.out.println("implement sortJobs");
+        //System.out.println("implement sortJobs");
     }
 
     private Job findNextJob(ArrayList<Job> jobs){
