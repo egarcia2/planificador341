@@ -8,7 +8,9 @@ public class Job{
     double arrivalTime;
     boolean performIO;
     int numIOs;
-    int priority; //if positive then uses priority, -1 is no priority
+    int priority; //if positive then uses priority, -1 is no 
+    int numTickets;
+    int[] ticketRange = new int[2]; // [low, high]
 
     public Job(double runtime, double arrival_time, boolean performIO, int numIOs){
         this.runtime = runtime;
@@ -32,6 +34,22 @@ public class Job{
 
     public String toString(){
         return "[Job: " + runtime + ", " + arrivalTime + ", " +  cost + ", " + performIO + ", " + numIOs + ", " + priority + " ]";
+    }
+
+    public int getNumTickets(){
+        return this.numTickets;
+    }
+
+    public int[] getTicketRange(){
+        return this.ticketRange;
+    }
+
+    public void setNumTickets(int num){
+        this.numTickets = num;
+    }
+
+    public void setTicketRange(int[] range){
+        this.ticketRange = range;
     }
 
     public double getRunTime(){
