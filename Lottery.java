@@ -33,7 +33,7 @@ public class Lottery{
             double runtime = jobi.getRunTime();
             totalRun += runtime;
         }
-        // System.out.println("total runtime: " + totalRun);
+        System.out.println("total runtime: " + totalRun);
 
         //calc num tickets based on %runtime 
         for(int i = 0; i < tempJobList.size(); i++) {
@@ -51,31 +51,35 @@ public class Lottery{
             int jobiNumTickets = jobi.getNumTickets();
             int[] newRange = new int[2];
             newRange[0] = lastRange;
-            System.out.println(i + " low: " + lastRange);
-            System.out.println(i + " high: " + (lastRange + jobiNumTickets - 1));
+            // System.out.println(i + " low: " + lastRange);
+            // System.out.println(i + " high: " + (lastRange + jobiNumTickets - 1));
             newRange[1] = lastRange + jobiNumTickets - 1;
             lastRange = lastRange + jobiNumTickets;
             jobi.setTicketRange(newRange);
         }
 
-        /*
+        
         while (!tempJobList.isEmpty()) { 
             Job jobi = null;
             boolean picked = false;
             while(!picked) {
                 Random rand = new Random(); 
-                int rand_int1 = rand.nextInt(totalRun + 1);
+                int rand_int1 = rand.nextInt(100);
+                // System.out.println("random number: "+ rand_int1);
 
                 //find the job with the random number 
                 for(int i = 0; i < tempJobList.size(); i++) {
                     Job jobNext = tempJobList.get(i);
                     int[] range = jobNext.getTicketRange();
+                    // System.out.println("range low " + range[0]);
+                    // System.out.println("range high " + range[1]);
                     if(rand_int1 >= range[0] && rand_int1 <= range[1]){
                         jobi = jobNext;
                         picked = true;
                     }
                 }
             }
+            // System.out.println("jobi picked: " + jobi.toString());
             double newRunTime = jobi.getRemainingRunTime() - TIMESLICE; 
 
             if (jobi.getRemainingRunTime() == TIMESLICE) {
@@ -95,7 +99,7 @@ public class Lottery{
             }
         }
         System.out.println("Jobs finished at " + clock1.getTime());  
-        */
+        
     }
 
     public static void main (String[] args) {
