@@ -6,6 +6,8 @@ public class Job{
     double remainingRuntime; 
     int cost;
     double arrivalTime;
+    // double responseTime; 
+    // double turnaroundTime; 
     boolean performIO;
     int numIOs;
     int priority; //if positive then uses priority, -1 is no 
@@ -64,6 +66,14 @@ public class Job{
         return this.arrivalTime;
     }
 
+    // public double getResponseTime(){
+    //     return this.responseTime;
+    // }
+
+    // public double getTurnaroundTime(){
+    //     return this.turnaroundTime;
+    // }
+
     public boolean getPerformIO(){
         return this.performIO;
     }
@@ -83,6 +93,14 @@ public class Job{
     public void setRunTime(double run_time){
         this.runtime = run_time;
     }
+
+    // public void setResponseTime(double response_time) {
+    //     this.responseTime = response_time; 
+    // }
+
+    // public void setTurnaroundTime(double turnaround_time) {
+    //     this.turnaroundTime = turnaround_time; 
+    // }
 
     public void setRemainingRunTime(double run_time){
         this.remainingRuntime = run_time;

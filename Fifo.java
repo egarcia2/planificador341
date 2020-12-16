@@ -6,6 +6,8 @@ public class Fifo{
 
     Job[] joblist = new Job[10];
     Clock clock1;
+    ArrayList<Double> responseTimes = new ArrayList<Double>(10);
+    ArrayList<Double> turnaroundTimes = new ArrayList<Double>(10);
 
     public Fifo(Job[] joblist){
         this.joblist = joblist;
@@ -25,9 +27,11 @@ public class Fifo{
             if(arriveTime > clock1.getTime()) {
                 clock1.setTime(arriveTime);
             }
+            responseTimes.add(clock1.getTime() - jobi.getArrivalTime()); 
             System.out.println("Job " + (i+1) + " starting at time: " + clock1.getTime());
             //simulate runtime
             clock1.addTime(jobi.getRunTime());
+            turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime());
             System.out.println("Job " + (i+1) + " finished at time: " + clock1.getTime());
             System.out.println();
         }
@@ -35,6 +39,24 @@ public class Fifo{
 
     public double getScheduleTime(){
         return this.clock1.getTime();
+    }
+
+    public double getResponseTime(){
+        double i = 0; 
+        for (double time: responseTimes) {
+            i += time; 
+        }
+        i = i/responseTimes.size(); 
+        return i; 
+    }
+
+    public double getTurnaroundTime(){
+        double i = 0; 
+        for (double time: turnaroundTimes) {
+            i += time; 
+        }
+        i = i/turnaroundTimes.size(); 
+        return i; 
     }
 
     public static void main (String[] args) {
@@ -64,6 +86,10 @@ public class Fifo{
         Fifo fifo1 = new Fifo(jobArray);
 
         fifo1.run();
-        System.out.println("Finished running Fifo at " + fifo1.getScheduleTime() + "\n");
+
+        System.out.println("Finished running Fifo at " + fifo1.getScheduleTime());
+        System.out.println("The average response time for this workload is: " + fifo1.getResponseTime()); 
+        System.out.println("The average turnaround time for this workload is: " + fifo1.getTurnaroundTime() + "\n"); 
+        
     }
 }
