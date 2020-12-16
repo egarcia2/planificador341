@@ -14,7 +14,7 @@ public class MLFQ_attempt{
     double S; 
 
 
-    public MLFQ_attempt(ArrayList<Job> joblist, double TIMESLICE){ 
+    public MLFQ_attempt(ArrayList<Job> joblist, double TIMESLICE, double S){ 
         this.joblist = joblist;
         clock1 = new Clock(); 
         this.TIMESLICE = TIMESLICE;
@@ -58,13 +58,13 @@ public class MLFQ_attempt{
                         System.out.println(jobi.toString() + " is running.");
                         clock1.addTime(TIMESLICE);
                     
-                        tempJobList.remove(new Job(jobi)); 
+                        tempJobList.remove(jobi); 
                         P1.remove(jobi);
                     }
                     if (jobi.getRemainingRunTime() < TIMESLICE) {
                         System.out.println(jobi.toString() + " is running.");
                         clock1.addTime(jobi.getRemainingRunTime());
-                        tempJobList.remove(new Job(jobi));
+                        tempJobList.remove(jobi);
                         P1.remove(jobi);
                     }
                     if (jobi.getRemainingRunTime() > TIMESLICE) {
@@ -83,21 +83,21 @@ public class MLFQ_attempt{
                             if (jobk.getRemainingRunTime() == TIMESLICE) { // will finish 
                                 System.out.println(jobk.toString() + " is running.");
                                 clock1.addTime(TIMESLICE);
-                                tempJobList.remove(new Job(jobk)); 
+                                tempJobList.remove(jobk); 
                                 P2.remove(jobk);
                             }
                             if (jobk.getRemainingRunTime() < TIMESLICE) {
                                 System.out.println(jobk.toString() + " is running.");
                                 clock1.addTime(jobk.getRemainingRunTime());
-                                tempJobList.remove(new Job(jobk));
-                                P1.remove(jobk);
+                                tempJobList.remove(jobk);
+                                P2.remove(jobk);
                             }
-                            if (jobi.getRemainingRunTime() > TIMESLICE) {
-                                jobi.setRemainingRunTime(newRunTime);
+                            if (jobk.getRemainingRunTime() > TIMESLICE) {
+                                jobk.setRemainingRunTime(newRunTime);
                                 System.out.println(jobi.toString() + " is running.");
                                 clock1.addTime(TIMESLICE);
-                                P2.remove(jobi);
-                                P3.add(jobi);
+                                P2.remove(jobk);
+                                P3.add(jobk);
                             }
                         } // S has not been reached 
                         else if ((P2.poll() == null) && (clock1.getTime() != S)) { // nothing left in P2 or P1 and haven't reached S
