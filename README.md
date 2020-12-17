@@ -11,8 +11,8 @@ Our project implements the following things:
 * Planificador main class where all algorithms are run and metrics are used to compare and contrast algorithms 
 
 ## How to Compile & Run 
-To compile all files on VSC, please run: **javac *.java** <br />
-Or to compile a file individually: **javac (filename).java** <br />
+To compile all files on VSC, run: __javac *.java__ <br />
+Or to compile a file individually, run: **javac (filename).java** <br />
 
 To run all algorithms and view their metrics, after compiling, run: **java Planificador** <br />
 To run algorithms independently, after compiling, run: **java (filename)** 
