@@ -1,10 +1,5 @@
-# planificador341
-OS scheduler simulator (planificador is the spanish translation for 'scheduler')
-
-
-
 # CS 341 Final Project: Planificador 
-OS scheduler simulator (planificador is the spanish translation for 'scheduler'). ** We have used Java to implement the following: **
+OS scheduler simulator (planificador is the spanish translation for 'scheduler'). **We have used Java to implement the following:**
 
 Our project implements the following things: 
 * Five common scheduling algorithms as described in OSTEP Chapters (CPU: Scheduling, Multi-level Feedback, and Lottery Scheduling)
@@ -16,11 +11,11 @@ Our project implements the following things:
 * Planificador main class where all algorithms are run and metrics are used to compare and contrast algorithms 
 
 ## How to Compile & Run 
-To compile all files on VSC, please run: ** javac *.java **
-Or to run a file individually: ** javac (filename).java **
+To compile all files on VSC, please run: **javac *.java**
+Or to run a file individually: **javac (filename).java**
 
-To run all algorithms and view their metrics, after compiling, run: ** java Planificador **
-To view algorithms independently, run: ** java (filename) **
+To run all algorithms and view their metrics, after compiling, run: **java Planificador**
+To view algorithms independently, run: **java (filename)**
 
 ## Known Bugs/Limitations/Assumptions
 * Lottery_Priority: Due to the nature of this algorithm, we decided to assume that all jobs given would come in at 0. We were unsure of how to implement this algorithm since our current implementation distributes tickets to jobs in the very beginning. Having jobs come in at varying times would mess with the division of tickets we had previously done. Hence, all workloads tested for this algorithm only contain jobs with arrival times of 0. 
