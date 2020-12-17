@@ -11,11 +11,11 @@ Our project implements the following things:
 * Planificador main class where all algorithms are run and metrics are used to compare and contrast algorithms 
 
 ## How to Compile & Run 
-To compile all files on VSC, please run: **javac *.java**
-Or to run a file individually: **javac (filename).java**
+To compile all files on VSC, please run: **javac *.java** <br />
+Or to run a file individually: **javac (filename).java** <br />
 
-To run all algorithms and view their metrics, after compiling, run: **java Planificador**
-To view algorithms independently, run: **java (filename)**
+To run all algorithms and view their metrics, after compiling, run: **java Planificador** <br />
+To view algorithms independently, run: **java (filename)** 
 
 ## Known Bugs/Limitations/Assumptions
 * Lottery_Priority: Due to the nature of this algorithm, we decided to assume that all jobs given would come in at 0. We were unsure of how to implement this algorithm since our current implementation distributes tickets to jobs in the very beginning. Having jobs come in at varying times would mess with the division of tickets we had previously done. Hence, all workloads tested for this algorithm only contain jobs with arrival times of 0. 
@@ -24,19 +24,20 @@ To view algorithms independently, run: **java (filename)**
 
 ## Tests in Planificador 
 * workload1: This workload is tested among all algorithms. All arrival times are 0 (due to Lottery_Priority limitation described above). 
-Ex. 1: This test that contains a mixture of builtin and executable commands that should run successfully. 
-> ./shell tests/test1.in 
-
-Ex. 2: This test that contains a mixture of builtin and executable commands that should NOT run successfully due to missing or incorrectly given files. 
-> ./shell tests/test2.in
-
-Ex. 3: This test contains a mixture of builtin and executable commands that should run successfully. Last command after exit should not be executed. 
-> ./shell commands.txt
+* workload2: 
 
 ## Basic Code Structure of Algorithms  
-* 
-
+* Necessary instance variables including Array Lists for calculating response and turnaround time. Other variables are pretty similar throughout algorithms with the additional TIMESLICE for algorithms running round robin, and S for MLFQ. 
+* run(): Implemented in all algorithms. Most, if not all code, in this function performs the running of the algorithm. 
+* Metric calculations: Implemented in all algorithms to use for calculation of scheduling metrics. 
+'''
+ public double getScheduleTime()
+ public double getResponseTime(){
+ public double getTurnaroundTime()
+ public double getContextSwitchTime() 
+'''
 * main: Driver function. Runs tests for algorithm and performs metrics. 
+* **NOTE:** Additional helper methods have been implemented for some algorithms depending on complexity.
 
 
 

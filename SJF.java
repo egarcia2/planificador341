@@ -10,14 +10,8 @@ public class SJF{
     ArrayList<Double> responseTimes = new ArrayList<Double>(10);
     ArrayList<Double> turnaroundTimes = new ArrayList<Double>(10);
 
-
-
     public SJF(ArrayList<Job> joblist){
         this.joblist = joblist;
-    }
-
-    public void sortJobs() {
-        //System.out.println("implement sortJobs");
     }
 
     private Job findNextJob(ArrayList<Job> jobs){
@@ -34,7 +28,6 @@ public class SJF{
     }
 
     public void run() {
-        this.sortJobs(); 
         ArrayList<Job> tempJobList = joblist;
         clock1.setTime(tempJobList.get(0).getArrivalTime());
          

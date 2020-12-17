@@ -18,13 +18,7 @@ public class Lottery_Priority{
         this.TIMESLICE = TIMESLICE;
     }
 
-    public void sortJobs() {
-        //System.out.println("implement sortJobs");
-    }
-
     public void run() {
-        //assume jobs are sorted by greatest runtime first 
-        // this.sortJobs(); 
         ArrayList<Job> tempJobList = new ArrayList<Job> (joblist);
         clock1.setTime(tempJobList.get(0).getArrivalTime());
     

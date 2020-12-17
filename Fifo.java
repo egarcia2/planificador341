@@ -14,9 +14,6 @@ public class Fifo{
         clock1 = new Clock();
     }
 
-    public void sortJobs() {
-        //System.out.println("implement sortJobs");
-    }
 
     public void run() {
         clock1.setTime(joblist[0].getArrivalTime());

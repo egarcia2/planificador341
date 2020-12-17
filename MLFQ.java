@@ -26,10 +26,6 @@ public class MLFQ{
         this.S = S; 
     }
 
-    public void sortJobs() {
-        //System.out.println("implement sortJobs");
-    }
-
     public void runRobin(Queue<Job> removeFromQueue, Queue<Job> addToQueue, Job jobk) {
         double newRunTime = jobk.getRemainingRunTime() - TIMESLICE; 
 

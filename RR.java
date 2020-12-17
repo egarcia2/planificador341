@@ -18,13 +18,8 @@ public class RR{
         this.TIMESLICE = TIMESLICE;
     }
 
-    public void sortJobs() {
-        //System.out.println("implement sortJobs");
-    }
-
     public void run() {
         
-        this.sortJobs(); 
         ArrayList<Job> tempJobList = new ArrayList<Job> (joblist);
         clock1.setTime(tempJobList.get(0).getArrivalTime());
     
