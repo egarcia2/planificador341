@@ -32,17 +32,24 @@ public class MLFQ{
 
     public void runRobin(Queue<Job> removeFromQueue, Queue<Job> addToQueue, Job jobk) {
         double newRunTime = jobk.getRemainingRunTime() - TIMESLICE; 
+
+        if (jobk.getRunTime() == jobk.getRemainingRunTime()) { // check if it is first time running 
+            responseTimes.add(clock1.getTime() - jobk.getArrivalTime()); 
+        }
+
         if (jobk.getRemainingRunTime() == TIMESLICE) { // will finish 
             System.out.println(jobk.toString() + " is running in runRobin.");
             clock1.addTime(TIMESLICE);
             tempJobList.remove(jobk); 
             removeFromQueue.remove(jobk);
+            turnaroundTimes.add(clock1.getTime() - jobk.getArrivalTime());
         }
         if (jobk.getRemainingRunTime() < TIMESLICE) {
             System.out.println(jobk.toString() + " is running in runRobin.");
             clock1.addTime(jobk.getRemainingRunTime());
             tempJobList.remove(jobk);
             removeFromQueue.remove(jobk);
+            turnaroundTimes.add(clock1.getTime() - jobk.getArrivalTime());
         }
         if (jobk.getRemainingRunTime() > TIMESLICE) {
             jobk.setRemainingRunTime(newRunTime);
@@ -77,7 +84,7 @@ public class MLFQ{
        
         //assume jobs are sorted by greatest runtime first 
         // this.sortJobs(); 
-        clock1.addTime(tempJobList.get(0).getArrivalTime());
+        clock1.setTime(tempJobList.get(0).getArrivalTime());
 
         Job jobi; 
         for (int i = 0; i < tempJobList.size(); i++) { // add ALL jobs to first queue 
@@ -130,6 +137,7 @@ public class MLFQ{
                 jobQ3 = P3.peek(); 
                 //simulate runtime
                 clock1.addTime(jobQ3.getRemainingRunTime());
+                turnaroundTimes.add(clock1.getTime() - jobQ3.getArrivalTime());
                 tempJobList.remove(jobQ3);
                 P3.remove(jobQ3);
                 System.out.println(jobQ3.toString() + " is running in Q3.");
@@ -159,7 +167,32 @@ public class MLFQ{
                 
             }
         }
-        System.out.println("Jobs finished at " + clock1.getTime());  
+    }
+
+    public double getScheduleTime(){
+        return this.clock1.getTime();
+    }
+
+    public double getResponseTime(){
+        double i = 0; 
+        for (double time: responseTimes) {
+            i += time; 
+        }
+        i = i/responseTimes.size(); 
+        return i; 
+    }
+
+    public double getTurnaroundTime(){
+        double i = 0; 
+        for (double time: turnaroundTimes) {
+            i += time; 
+        }
+        i = i/turnaroundTimes.size(); 
+        return i; 
+    }
+
+    public double getContextSwitchTime() {
+        return clock1.getNumContextSwitch() * 1.2; 
     }
 
     public static void main (String[] args) {
@@ -184,7 +217,14 @@ public class MLFQ{
         jobArray.add(new Job(4, 10, false, 0, 6));
         jobArray.add(new Job(2, 12, false, 0, 1));
 
-        MLFQ badname = new MLFQ(jobArray, 2, 20);
-        badname.run();
+        MLFQ MLFQ1 = new MLFQ(jobArray, 2, 20);
+        MLFQ1.run();
+
+        System.out.println("\n" + "Finished running MLFQ at " + MLFQ1.getScheduleTime());
+        System.out.println("Total context-switch time: " + MLFQ1.getContextSwitchTime());
+        double withContextSwitchtime = MLFQ1.getScheduleTime() + MLFQ1.getContextSwitchTime(); 
+        System.out.println("Finished running MLFQ at " + withContextSwitchtime + " with context-switch time included.");
+        System.out.println("The average response time for this workload is: " + MLFQ1.getResponseTime()); 
+        System.out.println("The average turnaround time for this workload is: " + MLFQ1.getTurnaroundTime() + "\n"); 
     }
 }

@@ -6,13 +6,19 @@ import java.util.*;
 public class Clock{
 
     double time;
+    int numContextSwitch; 
 
     public Clock() {
         this.time = 0;
+        this.numContextSwitch= 0; 
     }
     
     public double getTime() {
         return this.time;
+    }
+
+    public int getNumContextSwitch() {
+        return this.numContextSwitch;
     }
 
     public double addOne() {
@@ -22,6 +28,7 @@ public class Clock{
 
     public double addTime(double time){
         this.time += time;
+        this.numContextSwitch +=1; 
         return this.time;
     }
 

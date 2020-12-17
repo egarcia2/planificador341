@@ -19,7 +19,7 @@ public class Fifo{
     }
 
     public void run() {
-        clock1.addTime(joblist[0].getArrivalTime());
+        clock1.setTime(joblist[0].getArrivalTime());
             
         for(int i = 0; i< joblist.length; i++) {
             Job jobi = joblist[i];
@@ -59,6 +59,10 @@ public class Fifo{
         return i; 
     }
 
+    public double getContextSwitchTime() {
+        return clock1.getNumContextSwitch() * 1.2; 
+    }
+
     public static void main (String[] args) {
         // Job jobby1 = new Job(4, 1, false, 0);
         // Job jobby2 = new Job(2.25, 2, false, 0);
@@ -88,6 +92,9 @@ public class Fifo{
         fifo1.run();
 
         System.out.println("Finished running Fifo at " + fifo1.getScheduleTime());
+        System.out.println("Total context-switch time: " + fifo1.getContextSwitchTime());
+        double withContextSwitchtime = fifo1.getScheduleTime() + fifo1.getContextSwitchTime(); 
+        System.out.println("Finished running Fifo at " + withContextSwitchtime + " with context-switch time included.");
         System.out.println("The average response time for this workload is: " + fifo1.getResponseTime()); 
         System.out.println("The average turnaround time for this workload is: " + fifo1.getTurnaroundTime() + "\n"); 
         

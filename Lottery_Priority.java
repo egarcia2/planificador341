@@ -8,6 +8,8 @@ public class Lottery_Priority{
     ArrayList<Job> joblist = new ArrayList<Job>(10); 
     Clock clock1 = new Clock();
     double TIMESLICE; 
+    ArrayList<Double> responseTimes = new ArrayList<Double>(10);
+    ArrayList<Double> turnaroundTimes = new ArrayList<Double>(10);
 
 
     public Lottery_Priority(ArrayList<Job> joblist, double TIMESLICE){ 
@@ -24,7 +26,7 @@ public class Lottery_Priority{
         //assume jobs are sorted by greatest runtime first 
         // this.sortJobs(); 
         ArrayList<Job> tempJobList = new ArrayList<Job> (joblist);
-        clock1.addTime(tempJobList.get(0).getArrivalTime());
+        clock1.setTime(tempJobList.get(0).getArrivalTime());
     
         //CALC TOTAL TIME TO RUN ALL JOBS
         int totalRun = 0; 
@@ -94,15 +96,21 @@ public class Lottery_Priority{
             // System.out.println("jobi picked: " + jobi.toString());
             double newRunTime = jobi.getRemainingRunTime() - TIMESLICE; 
 
+            if (jobi.getRunTime() == jobi.getRemainingRunTime()) { // check if it is first time running 
+                responseTimes.add(clock1.getTime() - jobi.getArrivalTime()); 
+            }
+
             if (jobi.getRemainingRunTime() == TIMESLICE) {
                 System.out.println(jobi.toString() + " is running.");
                 clock1.addTime(TIMESLICE);
                 tempJobList.remove(jobi); 
+                turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime());
             }
             if (jobi.getRemainingRunTime() < TIMESLICE) {
                 System.out.println(jobi.toString() + " is running.");
                 clock1.addTime(jobi.getRemainingRunTime());
                 tempJobList.remove(jobi); 
+                turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime());
             }
             if (jobi.getRemainingRunTime() > TIMESLICE) {
                 jobi.setRemainingRunTime(newRunTime);
@@ -110,8 +118,32 @@ public class Lottery_Priority{
                 clock1.addTime(TIMESLICE);
             }
         }
-        System.out.println("Jobs finished at " + clock1.getTime());  
-        
+    }
+
+    public double getScheduleTime(){
+        return this.clock1.getTime();
+    }
+
+    public double getResponseTime(){
+        double i = 0; 
+        for (double time: responseTimes) {
+            i += time; 
+        }
+        i = i/responseTimes.size(); 
+        return i; 
+    }
+
+    public double getTurnaroundTime(){
+        double i = 0; 
+        for (double time: turnaroundTimes) {
+            i += time; 
+        }
+        i = i/turnaroundTimes.size(); 
+        return i; 
+    }
+
+    public double getContextSwitchTime() {
+        return clock1.getNumContextSwitch() * 1.2; 
     }
 
     public static void main (String[] args) {
@@ -123,7 +155,14 @@ public class Lottery_Priority{
         jobArray.add(new Job(4, 0, false, 0, 6));
         jobArray.add(new Job(2, 0, false, 0, 1));
 
-        Lottery_Priority badname = new Lottery_Priority(jobArray, 2);
-        badname.run();
+        Lottery_Priority LottPrior1 = new Lottery_Priority(jobArray, 2);
+        LottPrior1.run();
+
+        System.out.println("\n" + "Finished running Lottery_Priority at " + LottPrior1.getScheduleTime());
+        System.out.println("Total context-switch time: " + LottPrior1.getContextSwitchTime());
+        double withContextSwitchtime = LottPrior1.getScheduleTime() + LottPrior1.getContextSwitchTime(); 
+        System.out.println("Finished running Lottery_Priority at " + withContextSwitchtime + " with context-switch time included.");
+        System.out.println("The average response time for this workload is: " + LottPrior1.getResponseTime()); 
+        System.out.println("The average turnaround time for this workload is: " + LottPrior1.getTurnaroundTime() + "\n"); 
     }
 }
