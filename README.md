@@ -30,12 +30,12 @@ To view algorithms independently, run: **java (filename)**
 * Necessary instance variables including Array Lists for calculating response and turnaround time. Other variables are pretty similar throughout algorithms with the additional TIMESLICE for algorithms running round robin, and S for MLFQ. 
 * run(): Implemented in all algorithms. Most, if not all code, in this function performs the running of the algorithm. 
 * Metric calculations: Implemented in all algorithms to use for calculation of scheduling metrics. 
-'''
+```java
  public double getScheduleTime()
  public double getResponseTime(){
  public double getTurnaroundTime()
  public double getContextSwitchTime() 
-'''
+```
 * main: Driver function. Runs tests for algorithm and performs metrics. 
 * **NOTE:** Additional helper methods have been implemented for some algorithms depending on complexity.
 
