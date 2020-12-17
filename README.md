@@ -12,10 +12,10 @@ Our project implements the following things:
 
 ## How to Compile & Run 
 To compile all files on VSC, please run: **javac *.java** <br />
-Or to run a file individually: **javac (filename).java** <br />
+Or to compile a file individually: **javac (filename).java** <br />
 
 To run all algorithms and view their metrics, after compiling, run: **java Planificador** <br />
-To view algorithms independently, run: **java (filename)** 
+To run algorithms independently, after compiling, run: **java (filename)** 
 
 ## Known Bugs/Limitations/Assumptions
 * Lottery_Priority: Due to the nature of this algorithm, we decided to assume that all jobs given would come in at 0. We were unsure of how to implement this algorithm since our current implementation distributes tickets to jobs in the very beginning. Having jobs come in at varying times would mess with the division of tickets we had previously done. Hence, all workloads tested for this algorithm only contain jobs with arrival times of 0. 
@@ -32,7 +32,7 @@ To view algorithms independently, run: **java (filename)**
 * Metric calculations: Implemented in all algorithms to use for calculation of scheduling metrics. 
 ```java
  public double getScheduleTime()
- public double getResponseTime(){
+ public double getResponseTime()
  public double getTurnaroundTime()
  public double getContextSwitchTime() 
 ```
