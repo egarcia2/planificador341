@@ -1,4 +1,6 @@
-# CS 341 Final Project: Planificador 
+# CS 341 Final Project: Planificador
+link to final report: https://docs.google.com/document/d/1aDUlf-ks2wclNzFGyirCsAlknJS2TVCnkUJm_3U_dFs/edit?usp=sharing (viewable only by Wellesley emails)
+
 OS scheduler simulator (planificador is the spanish translation for 'scheduler'). **We have used Java to implement the following:**
 
 Our project implements the following things: 
