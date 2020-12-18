@@ -21,7 +21,7 @@ To run algorithms independently, after compiling, enter: **java (filename)**
 1. Lottery_Priority: Due to the nature of this algorithm, we decided to assume that all jobs given would have an arrival time of 0. We were unsure of how to implement this algorithm since our current implementation distributes tickets to jobs in the very beginning. Having jobs come in at varying times would mess with the division of tickets we had previously done. Hence, all workloads tested for this algorithm only contain jobs with arrival times of 0. 
 2. sortJobs: This is a method that we were planning on implementing to sort the jobs in our workload by arrival time. However, in the end we decided to sort the jobs ourselves in our testing cases since this really isn't part of the operating schedulers job, but rather part of our simulation. Hence, it was a design decision to do the sorting ourselves. 
 3. For some reason, our algorithm metrics would produce incorrect results in Planificador and Planificador2 if algorithms shared the same workload ArrayList object. To fix this, we decided to create different objects of the SAME workload. 
-4. As stated in the Clock class, all time is assumed to be in microseconds. 
+4. As stated in the Clock class, all time is assumed to be in milliseconds. 
 5. You may notice that the Job class contains parameters for IO functionality. Due to limitations in time, we were unable to implement this feature, so we assume that all jobs are running on the CPU. 
 
 

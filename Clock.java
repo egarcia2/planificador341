@@ -1,5 +1,5 @@
 /**
-This is a representation of time in terms of microseconds 
+This is a representation of time in terms of milliseconds 
  */
 import java.util.*;
 
