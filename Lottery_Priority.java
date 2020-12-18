@@ -11,18 +11,21 @@ public class Lottery_Priority{
     ArrayList<Double> responseTimes = new ArrayList<Double>(10);
     ArrayList<Double> turnaroundTimes = new ArrayList<Double>(10);
 
-
+    // constructor - requires a time slice
     public Lottery_Priority(ArrayList<Job> joblist, double TIMESLICE){ 
         this.joblist = joblist;
         clock1 = new Clock(); 
         this.TIMESLICE = TIMESLICE;
     }
 
+    /**
+    Runs the scheduling algorithm simulation
+     */
     public void run() {
-        ArrayList<Job> tempJobList = new ArrayList<Job> (joblist);
+        ArrayList<Job> tempJobList = new ArrayList<Job> (joblist); // make a copy of the joblist
         clock1.setTime(tempJobList.get(0).getArrivalTime());
     
-        //CALC TOTAL TIME TO RUN ALL JOBS
+        // calculate total time to run all jobs
         int totalRun = 0; 
         for(int i = 0; i < tempJobList.size(); i++) {
             Job jobi = tempJobList.get(i);
@@ -30,7 +33,7 @@ public class Lottery_Priority{
             totalRun += runtime;
         }
 
-        //calc num tickets based on %runtime 
+        // assign tickets based on priority  
         for(int i = 0; i < tempJobList.size(); i++) {
             Job jobi = tempJobList.get(i);
             int priority = jobi.getPriority();
@@ -46,9 +49,6 @@ public class Lottery_Priority{
             if (priority > 3) {
                 jobi.setNumTickets(25);
             }
-            // int numTickets = (int) Math.floor((runtime/totalRun) * 100);
-            
-            // System.out.println("num tickets: " + numTickets);
         }
 
         //assign ticket ranges
@@ -58,57 +58,51 @@ public class Lottery_Priority{
             int jobiNumTickets = jobi.getNumTickets();
             int[] newRange = new int[2];
             newRange[0] = lastRange;
-            // System.out.println(i + " low: " + lastRange);
-            // System.out.println(i + " high: " + (lastRange + jobiNumTickets - 1));
             newRange[1] = lastRange + jobiNumTickets - 1;
             lastRange = lastRange + jobiNumTickets;
             jobi.setTicketRange(newRange);
         }
 
         
-        while (!tempJobList.isEmpty()) { 
+        while (!tempJobList.isEmpty()) {    // while there are still jobs left to run
             Job jobi = null;
-            boolean picked = false;
+            boolean picked = false;     // no job picked yet
             while(!picked) {
-                Random rand = new Random(); 
-                int rand_int1 = rand.nextInt(lastRange);
-                // System.out.println("random number: "+ rand_int1);
+                Random rand = new Random();     
+                int rand_int1 = rand.nextInt(lastRange);    // get new random num
 
-                //find the job with the random number 
-                for(int i = 0; i < tempJobList.size(); i++) {
+                for(int i = 0; i < tempJobList.size(); i++) { // find the job with the random number
                     Job jobNext = tempJobList.get(i);
                     int[] range = jobNext.getTicketRange();
-                    // System.out.println("range low " + range[0]);
-                    // System.out.println("range high " + range[1]);
                     if(rand_int1 >= range[0] && rand_int1 <= range[1]){
                         jobi = jobNext;
                         picked = true;
                     }
                 }
             }
-            // System.out.println("jobi picked: " + jobi.toString());
+
             double newRunTime = jobi.getRemainingRunTime() - TIMESLICE; 
 
-            if (jobi.getRunTime() == jobi.getRemainingRunTime()) { // check if it is first time running 
-                responseTimes.add(clock1.getTime() - jobi.getArrivalTime()); 
+            if (jobi.getRunTime() == jobi.getRemainingRunTime()) { // check if this is job's first time running 
+                responseTimes.add(clock1.getTime() - jobi.getArrivalTime()); // add response time
             }
 
-            if (jobi.getRemainingRunTime() == TIMESLICE) {
+            if (jobi.getRemainingRunTime() == TIMESLICE) { // if the remaining runtime is same as timeslice 
                 System.out.println(jobi.toString() + " is running.");
-                clock1.addTime(TIMESLICE);
-                tempJobList.remove(jobi); 
-                turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime());
+                clock1.addTime(TIMESLICE);  // run this job (add timeslice to clock)
+                tempJobList.remove(jobi);   // remove job from list 
+                turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime());  // add turnaround time
             }
-            if (jobi.getRemainingRunTime() < TIMESLICE) {
+            if (jobi.getRemainingRunTime() < TIMESLICE) {   // if the remaining runtime is less than timeslice
                 System.out.println(jobi.toString() + " is running.");
-                clock1.addTime(jobi.getRemainingRunTime());
-                tempJobList.remove(jobi); 
-                turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime());
+                clock1.addTime(jobi.getRemainingRunTime());     // run this job (add remaining time to clock)
+                tempJobList.remove(jobi);   //remove this job from list 
+                turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime());  // add turnaround time 
             }
-            if (jobi.getRemainingRunTime() > TIMESLICE) {
-                jobi.setRemainingRunTime(newRunTime);
+            if (jobi.getRemainingRunTime() > TIMESLICE) {   // if remaining runtime is more than timeslice 
+                jobi.setRemainingRunTime(newRunTime);       // update the job's remaining time 
                 System.out.println(jobi.toString() + " is running.");
-                clock1.addTime(TIMESLICE);
+                clock1.addTime(TIMESLICE);      // run this job (add timeslice to clock)
             }
         }
     }
@@ -117,6 +111,7 @@ public class Lottery_Priority{
         return this.clock1.getTime();
     }
 
+    // calculate the average of response times in responseTimes list
     public double getResponseTime(){
         double i = 0; 
         for (double time: responseTimes) {
@@ -126,6 +121,7 @@ public class Lottery_Priority{
         return i; 
     }
 
+    // calculate the average of turnaround times in turnaroundTimes list
     public double getTurnaroundTime(){
         double i = 0; 
         for (double time: turnaroundTimes) {

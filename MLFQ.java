@@ -18,6 +18,7 @@ public class MLFQ{
  
 
 
+    // constructor - requires a time slice
     public MLFQ(ArrayList<Job> joblist, double TIMESLICE, double S){ 
         this.joblist = joblist;
         this.tempJobList = new ArrayList<Job> (joblist); 
@@ -26,36 +27,43 @@ public class MLFQ{
         this.S = S; 
     }
 
+    /**
+    Runs the given job (currently in the removeFromQueue queue) and adds to addToQueue
+     */
     public void runRobin(Queue<Job> removeFromQueue, Queue<Job> addToQueue, Job jobk) {
         double newRunTime = jobk.getRemainingRunTime() - TIMESLICE; 
 
         if (jobk.getRunTime() == jobk.getRemainingRunTime()) { // check if it is first time running 
-            responseTimes.add(clock1.getTime() - jobk.getArrivalTime()); 
+            responseTimes.add(clock1.getTime() - jobk.getArrivalTime()); // add response times 
         }
 
-        if (jobk.getRemainingRunTime() == TIMESLICE) { // will finish 
+        if (jobk.getRemainingRunTime() == TIMESLICE) { // if the remaining runtime is same as timeslice 
             System.out.println(jobk.toString() + " is running in runRobin.");
-            clock1.addTime(TIMESLICE);
-            tempJobList.remove(jobk); 
-            removeFromQueue.remove(jobk);
-            turnaroundTimes.add(clock1.getTime() - jobk.getArrivalTime());
+            clock1.addTime(TIMESLICE);  // run this job (add timeslice to clock)
+            tempJobList.remove(jobk);   // remove this job from list
+            removeFromQueue.remove(jobk);   // REMOVE JOB FROM QUEUE
+            turnaroundTimes.add(clock1.getTime() - jobk.getArrivalTime()); // add turnaround time
         }
-        if (jobk.getRemainingRunTime() < TIMESLICE) {
+        if (jobk.getRemainingRunTime() < TIMESLICE) { // if the remaining runtime is less than timeslice 
             System.out.println(jobk.toString() + " is running in runRobin.");
-            clock1.addTime(jobk.getRemainingRunTime());
-            tempJobList.remove(jobk);
-            removeFromQueue.remove(jobk);
-            turnaroundTimes.add(clock1.getTime() - jobk.getArrivalTime());
+            clock1.addTime(jobk.getRemainingRunTime()); // run this job (add remaining time to clock)
+            tempJobList.remove(jobk);       // remove this job from list
+            removeFromQueue.remove(jobk);   // REMOVE JOB FROM QUEUE
+            turnaroundTimes.add(clock1.getTime() - jobk.getArrivalTime()); // add turnaround time
         }
-        if (jobk.getRemainingRunTime() > TIMESLICE) {
-            jobk.setRemainingRunTime(newRunTime);
+        if (jobk.getRemainingRunTime() > TIMESLICE) { // if remaining runtime is more than timeslice
+            jobk.setRemainingRunTime(newRunTime); // update the job's remaining time 
             System.out.println(jobk.toString() + " is running in runRobin.");
-            clock1.addTime(TIMESLICE);
-            removeFromQueue.remove(jobk);
-            addToQueue.add(jobk);
-        }
+            clock1.addTime(TIMESLICE);       // run this job (add timeslice to clock)
+            removeFromQueue.remove(jobk); // REMOVE JOB FROM QUEUE
+            addToQueue.add(jobk);       // ADD JOB TO NEXT/GIVEN QUEUE
+        } 
     }
 
+    /**
+    Run all jobs in priority queue 1 (P1)
+    using the runRobin method
+     */
     public Job runJobsInP1() {
         if (P1.size() != 0) {
             System.out.println();
@@ -63,42 +71,42 @@ public class MLFQ{
         }
         Job jobQ1 = null; 
          
-        while (P1.size() != 0) {
-            jobQ1 = P1.peek(); 
-            if (jobQ1 != null && jobQ1.getArrivalTime() <= clock1.getTime()) {
-                runRobin(P1, P2, jobQ1); 
+        while (P1.size() != 0) {  // while there are still jobs in P1
+            jobQ1 = P1.peek(); // take first job in P1 
+            if (jobQ1 != null && jobQ1.getArrivalTime() <= clock1.getTime()) { // make sure job has arrived 
+                runRobin(P1, P2, jobQ1); // run job 
             }
             else {
                 break; 
             }
         }
-        return jobQ1; 
+        return jobQ1; // return the last job (next job in line to be run ^ the one who's arrival time is at a later time)
     }
 
 
+     /**
+    Runs the scheduling algorithm simulation
+     */
     public void run() {
-       
-        //assume jobs are sorted by greatest runtime first 
-        // this.sortJobs(); 
-        clock1.setTime(tempJobList.get(0).getArrivalTime());
+        clock1.setTime(tempJobList.get(0).getArrivalTime());  // advancce the clock to be that of the first job 
 
         Job jobi; 
-        for (int i = 0; i < tempJobList.size(); i++) { // add ALL jobs to first queue 
+        for (int i = 0; i < tempJobList.size(); i++) { // add ALL jobs to first queue and tempJobList
             jobi = tempJobList.get(i); 
             P1.add(jobi);
         }
 
-        while (!tempJobList.isEmpty()) { 
-            Job nextJobQ1 = runJobsInP1();
+        while (!tempJobList.isEmpty()) {    // while there are still jobs left to run
+            Job nextJobQ1 = runJobsInP1();  // run any jobs in Priority queue 1
             if (P2.size() != 0) {
                 System.out.println();
                 System.out.println("----- Running in Q2 -----");  
             }
             
             Job jobQ2;
-            while (P2.size() != 0) {
-                jobQ2 = P2.peek();  
-                runRobin(P2, P3, jobQ2); 
+            while (P2.size() != 0) {    // if there are jobs in Priority queue 2
+                jobQ2 = P2.peek();      // take first job in p2
+                runRobin(P2, P3, jobQ2);    // run job
                 if (clock1.getTime() >= S) { // if clock is equal to fixed int S; move ALL jobs back to 1
                     System.out.println("Reached S. Moving following jobs back to P1:");
                     while (P2.size() != 0) {
@@ -115,11 +123,11 @@ public class MLFQ{
                     }
                     S += S; 
                 }
-                if ((nextJobQ1 != null) && (nextJobQ1.getArrivalTime() <= clock1.getTime())) {
-                    nextJobQ1 = runJobsInP1(); 
-                    if (P2.size() != 0) {
+                if ((nextJobQ1 != null) && (nextJobQ1.getArrivalTime() <= clock1.getTime())) { // if (after running a job) the clock has now acknowlegded a new job in P1
+                    nextJobQ1 = runJobsInP1();      // run the jobs in priority queue 1
+                    if (P2.size() != 0) {   // after returning from running jobs in p1, if there are still jobs in p2
                         System.out.println();
-                        System.out.println("----- Running in Q2 -----");  
+                        System.out.println("----- Running in Q2 -----");  // reprint for the next job in q2
                     }
                 }
             }
@@ -129,13 +137,13 @@ public class MLFQ{
             }
             
             Job jobQ3;
-            while (P3.size() != 0) {
+            while (P3.size() != 0) { // if there are jobs in Priority queue 3
                 jobQ3 = P3.peek(); 
                 //simulate runtime
-                clock1.addTime(jobQ3.getRemainingRunTime());
-                turnaroundTimes.add(clock1.getTime() - jobQ3.getArrivalTime());
-                tempJobList.remove(jobQ3);
-                P3.remove(jobQ3);
+                clock1.addTime(jobQ3.getRemainingRunTime());    // run the job to completion 
+                turnaroundTimes.add(clock1.getTime() - jobQ3.getArrivalTime()); // add turnaround time 
+                tempJobList.remove(jobQ3);  // remove job from joblist
+                P3.remove(jobQ3);   // remove job from Priority queue 3
                 System.out.println(jobQ3.toString() + " is running in Q3.");
                 if (clock1.getTime() >= S) { // if clock is equal to fixed int S; move ALL jobs back to 1
                     System.out.println("Reached S. Moving following jobs back to P1:");
@@ -153,11 +161,11 @@ public class MLFQ{
                     }
                     S += S; 
                 }
-                if ((nextJobQ1 != null) && (nextJobQ1.getArrivalTime() <= clock1.getTime())) {
-                    nextJobQ1 = runJobsInP1(); 
-                    if (P3.size() != 0) {
+                if ((nextJobQ1 != null) && (nextJobQ1.getArrivalTime() <= clock1.getTime())) { // if (after running a job) the clock has now acknowlegded a new job in P1
+                    nextJobQ1 = runJobsInP1();  // run the jobs in priority queue 1
+                    if (P3.size() != 0) {   // after returning from running jobs in p1, if there are still jobs in p3
                         System.out.println();
-                        System.out.println("----- Running in Q3 -----");  
+                        System.out.println("----- Running in Q3 -----");    // reprint for the next job in q3
                     }
                 }
                 
@@ -170,6 +178,7 @@ public class MLFQ{
         return this.clock1.getTime();
     }
 
+    // calculate the average of response times in responseTimes list
     public double getResponseTime(){
         double i = 0; 
         for (double time: responseTimes) {
@@ -179,6 +188,7 @@ public class MLFQ{
         return i; 
     }
 
+    // calculate the average of turnaround times in turnaroundTimes list
     public double getTurnaroundTime(){
         double i = 0; 
         for (double time: turnaroundTimes) {

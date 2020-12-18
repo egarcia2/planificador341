@@ -9,19 +9,20 @@ public class Fifo{
     ArrayList<Double> responseTimes = new ArrayList<Double>(10);
     ArrayList<Double> turnaroundTimes = new ArrayList<Double>(10);
 
+    // Constructor
     public Fifo(ArrayList<Job> joblist){
         this.joblist = joblist;
         clock1 = new Clock();
     }
 
-
+    // Runs the scheduling algorithm simulation
     public void run() {
-        clock1.setTime(joblist.get(0).getArrivalTime());
+        clock1.setTime(joblist.get(0).getArrivalTime()); // advancce the clock to be that of the first job 
             
-        for(int i = 0; i < joblist.size(); i++) {
+        for(int i = 0; i < joblist.size(); i++) { 
             Job jobi = joblist.get(i);
             double arriveTime = jobi.getArrivalTime();
-            if(arriveTime > clock1.getTime()) {
+            if(arriveTime > clock1.getTime()) {     // advance the clock to simulate the next job has arrived
                 clock1.setTime(arriveTime);
             }
             responseTimes.add(clock1.getTime() - jobi.getArrivalTime()); 
@@ -38,6 +39,7 @@ public class Fifo{
         return this.clock1.getTime();
     }
 
+    // calculate the average of response times in responseTimes list 
     public double getResponseTime(){
         double i = 0; 
         for (double time: responseTimes) {
@@ -47,6 +49,7 @@ public class Fifo{
         return i; 
     }
 
+    // calculate the average of turnaround times in turnaroundTimes list
     public double getTurnaroundTime(){
         double i = 0; 
         for (double time: turnaroundTimes) {

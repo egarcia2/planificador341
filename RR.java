@@ -12,50 +12,54 @@ public class RR{
     ArrayList<Double> turnaroundTimes = new ArrayList<Double>(10);
 
 
+    // constructor - requires a time slice
     public RR(ArrayList<Job> joblist, double TIMESLICE){ 
         this.joblist = joblist;
         clock1 = new Clock(); 
         this.TIMESLICE = TIMESLICE;
     }
 
+     /**
+    Runs the scheduling algorithm simulation
+     */
     public void run() {
         
         ArrayList<Job> tempJobList = new ArrayList<Job> (joblist);
-        clock1.setTime(tempJobList.get(0).getArrivalTime());
+        clock1.setTime(tempJobList.get(0).getArrivalTime()); // advancce the clock to be that of the first job 
     
 
-        while (!tempJobList.isEmpty()) { 
-            for(int i = 0; i < tempJobList.size(); i++) {
+        while (!tempJobList.isEmpty()) {    // while there are still jobs left to run
+            for(int i = 0; i < tempJobList.size(); i++) { // for every job that's left in the queue
                 Job jobi = tempJobList.get(i);
-                double arriveTime = jobi.getArrivalTime();
+                double arriveTime = jobi.getArrivalTime(); 
                 if(arriveTime > clock1.getTime()) {
-                    clock1.setTime(arriveTime);
+                    clock1.setTime(arriveTime);     // advance the clock to simulate the next job has arrived
                 }
-                double newRunTime = jobi.getRemainingRunTime() - TIMESLICE; 
+                double newRunTime = jobi.getRemainingRunTime() - TIMESLICE; // calculate new runtime for this job
 
-                if (jobi.getRunTime() == jobi.getRemainingRunTime()) { // check if it is first time running 
-                    responseTimes.add(clock1.getTime() - jobi.getArrivalTime()); 
+                if (jobi.getRunTime() == jobi.getRemainingRunTime()) { // check if this is job's first time running 
+                    responseTimes.add(clock1.getTime() - jobi.getArrivalTime()); // add response time
                 }
 
-                if (jobi.getRemainingRunTime() == TIMESLICE) {
+                if (jobi.getRemainingRunTime() == TIMESLICE) { // if the remaining runtime is same as timeslice 
                     System.out.println(jobi.toString() + " is running.");
-                    clock1.addTime(TIMESLICE);
-                    tempJobList.remove(jobi); 
-                    turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime());
+                    clock1.addTime(TIMESLICE);      // run this job (add timeslice to clock)
+                    tempJobList.remove(jobi);       // remove job from list
+                    turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime()); // add turnaround time
                     i -= 1; 
                 }
-                if (jobi.getRemainingRunTime() < TIMESLICE) {
+                if (jobi.getRemainingRunTime() < TIMESLICE) { // if the remaining runtime is less than timeslice 
                     System.out.println(jobi.toString() + " is running.");
 
-                    clock1.addTime(jobi.getRemainingRunTime());
-                    tempJobList.remove(jobi);
-                    turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime()); 
+                    clock1.addTime(jobi.getRemainingRunTime());     // run this job (add remaining time to clock)
+                    tempJobList.remove(jobi);           // remove this job from list 
+                    turnaroundTimes.add(clock1.getTime() - jobi.getArrivalTime()); // add turnaround time
                     i -= 1; 
                 }
-                if (jobi.getRemainingRunTime() > TIMESLICE) {
-                    jobi.setRemainingRunTime(newRunTime);
+                if (jobi.getRemainingRunTime() > TIMESLICE) {   // if remaining runtime is more than timeslice
+                    jobi.setRemainingRunTime(newRunTime);       // update the job's remaining time 
                     System.out.println(jobi.toString() + " is running.");
-                    clock1.addTime(TIMESLICE);
+                    clock1.addTime(TIMESLICE);      // run this job (add timeslice to clock)
                 }
             }
         }
@@ -65,6 +69,7 @@ public class RR{
         return this.clock1.getTime();
     }
 
+    // calculate the average of response times in responseTimes list
     public double getResponseTime(){
         double i = 0; 
         for (double time: responseTimes) {
@@ -74,6 +79,7 @@ public class RR{
         return i; 
     }
 
+    // calculate the average of turnaround times in turnaroundTimes list
     public double getTurnaroundTime(){
         double i = 0; 
         for (double time: turnaroundTimes) {

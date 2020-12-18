@@ -1,4 +1,5 @@
 /**
+* This file contains the Job class. 
  */
 public class Job{
     //instance variables
@@ -12,6 +13,7 @@ public class Job{
     int numTickets;
     int[] ticketRange = new int[2]; // [low, high]
 
+    // constructor without priority 
     public Job(double runtime, double arrival_time, boolean performIO, int numIOs){
         this.runtime = runtime;
         this.remainingRuntime = runtime; 
@@ -22,6 +24,7 @@ public class Job{
         this.priority = -1;
     }
 
+    // constructor with priority 
     public Job(double runtime, double arrival_time, boolean performIO, int numIOs, int priority){
         this.runtime = runtime;
         this.remainingRuntime = runtime; 
