@@ -1,5 +1,5 @@
 /**
-Planificador runs scheduling algorithms on certain jobs.
+Planificador2 compares FIFO, SJF, RR, MLFQ with same workload that contains varying arrival times. 
  */
 
 import java.util.*;
@@ -17,19 +17,19 @@ public class Planificador2 {
 
         
         Fifo fifo1 = new Fifo(workload2);
-        System.out.println("---- RUNNING FIFO ----");
+        System.out.println("******** RUNNING FIFO ********");
         System.out.println();
         fifo1.run();
 
         SJF SJF1 = new SJF(workload2);
         System.out.println();
-        System.out.println("---- RUNNING SJF ----");
+        System.out.println("******** RUNNING SJF ********");
         System.out.println();
         SJF1.run();
 
         RR RR1 = new RR(workload2, 10);
         System.out.println();
-        System.out.println("---- RUNNING RR ----");
+        System.out.println("******** RUNNING RR ********");
         RR1.run();
 
         ArrayList<Job> workload3 = new ArrayList<Job>(5); // Workload is the same as above. New ArrayList object created due to referencing issues. See bugs/limitations #3 in README. 
@@ -42,7 +42,7 @@ public class Planificador2 {
 
         MLFQ MLFQ1 = new MLFQ(workload3, 4, 50);
         System.out.println();
-        System.out.println("---- RUNNING MLFQ ----");
+        System.out.println("******** RUNNING MLFQ ********");
         MLFQ1.run();
 
     

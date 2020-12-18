@@ -1,6 +1,5 @@
 /**
-Planificador runs scheduling algorithms on certain jobs.
-
+Planificador compares all algorithms (FIFO, SJF, RR, Lottery_Priority and MLFQ) with same workload that contains jobs with the same arrival time of 0.  
  */
 
 import java.util.*;
@@ -17,19 +16,20 @@ public class Planificador {
         workload1.add(new Job(2, 0, false, 0, 1));
 
         Fifo fifo1 = new Fifo(workload1);
-        System.out.println("---- RUNNING FIFO ----");
+        System.out.println("******** RUNNING FIFO ********");
         System.out.println();
         fifo1.run();
 
         SJF SJF1 = new SJF(workload1);
         System.out.println();
-        System.out.println("---- RUNNING SJF ----");
+        System.out.println("******** RUNNING SJF ********");
         System.out.println();
         SJF1.run();
 
         RR RR1 = new RR(workload1, 4);
         System.out.println();
-        System.out.println("---- RUNNING RR ----");
+        System.out.println("******** RUNNING RR ********");
+        System.out.println();
         RR1.run();
 
         ArrayList<Job> workload2 = new ArrayList<Job>(5); // Workload is the same as above. New ArrayList object created due to referencing issues. See bugs/limitations #3 in README. 
@@ -42,7 +42,8 @@ public class Planificador {
 
         Lottery_Priority LottPrior1 = new Lottery_Priority(workload2, 2);
         System.out.println();
-        System.out.println("---- RUNNING LOTTERY PRIORITY ----");
+        System.out.println("******** RUNNING LOTTERY PRIORITY ********");
+        System.out.println();
         LottPrior1.run();
 
         ArrayList<Job> workload3 = new ArrayList<Job>(5); // Workload is the same as above. New ArrayList object created due to referencing issues. See bugs/limitations #3 in README. 
@@ -55,7 +56,7 @@ public class Planificador {
 
         MLFQ MLFQ1 = new MLFQ(workload3, 2, 20);
         System.out.println();
-        System.out.println("---- RUNNING MLFQ ----");
+        System.out.println("******** RUNNING MLFQ ********");
         MLFQ1.run();
 
     

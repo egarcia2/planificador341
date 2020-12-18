@@ -204,7 +204,8 @@ public class MLFQ{
         MLFQ MLFQ1 = new MLFQ(workload1, 2, 20);
         MLFQ1.run();
 
-        System.out.println("\n" + "Finished running MLFQ at " + MLFQ1.getScheduleTime());
+        System.out.println("\n" + "~~~~~~~~~~~~~~~~~~~~ CALCULATING METRICS ~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Finished running MLFQ at " + MLFQ1.getScheduleTime());
         System.out.println("Total context-switch time: " + MLFQ1.getContextSwitchTime());
         double withContextSwitchtime = MLFQ1.getScheduleTime() + MLFQ1.getContextSwitchTime(); 
         System.out.println("Finished running MLFQ at " + withContextSwitchtime + " with context-switch time included.");
@@ -223,7 +224,8 @@ public class MLFQ{
         MLFQ MLFQ2 = new MLFQ(workload2, 4, 50);
         MLFQ2.run();
 
-        System.out.println("\n" + "Finished running MLFQ at " + MLFQ2.getScheduleTime());
+        System.out.println("\n" + "~~~~~~~~~~~~~~~~~~~~ CALCULATING METRICS ~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Finished running MLFQ at " + MLFQ2.getScheduleTime());
         System.out.println("Total context-switch time: " + MLFQ2.getContextSwitchTime());
         double withContextSwitchtime1 = MLFQ2.getScheduleTime() + MLFQ2.getContextSwitchTime(); 
         System.out.println("Finished running MLFQ at " + withContextSwitchtime1 + " with context-switch time included.");

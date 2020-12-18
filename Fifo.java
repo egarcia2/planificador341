@@ -85,6 +85,7 @@ public class Fifo{
         Fifo fifo1 = new Fifo(workload);
         fifo1.run();
 
+        System.out.println("\n" + "~~~~~~~~~~~~~~~~~~~~ CALCULATING METRICS ~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("Finished running Fifo at " + fifo1.getScheduleTime());
         System.out.println("Total context-switch time: " + fifo1.getContextSwitchTime());
         double withContextSwitchtime = fifo1.getScheduleTime() + fifo1.getContextSwitchTime(); 
@@ -102,6 +103,7 @@ public class Fifo{
         Fifo fifo2 = new Fifo(workload2);
         fifo2.run();
 
+        System.out.println("\n" + "~~~~~~~~~~~~~~~~~~~~ CALCULATING METRICS ~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("Finished running Fifo at " + fifo2.getScheduleTime());
         System.out.println("Total context-switch time: " + fifo2.getContextSwitchTime());
         double withContextSwitchtime2 = fifo2.getScheduleTime() + fifo2.getContextSwitchTime(); 

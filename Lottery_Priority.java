@@ -151,7 +151,8 @@ public class Lottery_Priority{
         Lottery_Priority LottPrior1 = new Lottery_Priority(jobArray, 2);
         LottPrior1.run();
 
-        System.out.println("\n" + "Finished running Lottery_Priority at " + LottPrior1.getScheduleTime());
+        System.out.println("\n" + "~~~~~~~~~~~~~~~~~~~~ CALCULATING METRICS ~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Finished running Lottery_Priority at " + LottPrior1.getScheduleTime());
         System.out.println("Total context-switch time: " + LottPrior1.getContextSwitchTime());
         double withContextSwitchtime = LottPrior1.getScheduleTime() + LottPrior1.getContextSwitchTime(); 
         System.out.println("Finished running Lottery_Priority at " + withContextSwitchtime + " with context-switch time included.");

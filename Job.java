@@ -6,8 +6,6 @@ public class Job{
     double remainingRuntime; 
     int cost;
     double arrivalTime;
-    // double responseTime; 
-    // double turnaroundTime; 
     boolean performIO;
     int numIOs;
     int priority; //if positive then uses priority, -1 is no 

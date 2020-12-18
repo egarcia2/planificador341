@@ -105,7 +105,7 @@ public class SJF{
         SJF SJF1 = new SJF(workload);
         SJF1.run();
 
-
+        System.out.println("\n" + "~~~~~~~~~~~~~~~~~~~~ CALCULATING METRICS ~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("Finished running SJF at " + SJF1.getScheduleTime());
         System.out.println("Total context-switch time: " + SJF1.getContextSwitchTime());
         double withContextSwitchtime = SJF1.getScheduleTime() + SJF1.getContextSwitchTime(); 

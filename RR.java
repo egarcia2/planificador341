@@ -100,7 +100,7 @@ public class RR{
         RR1.run();
 
         System.out.println("\n" + "~~~~~~~~~~~~~~~~~~~~ CALCULATING METRICS ~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("\n" +"Finished running RR at " + RR1.getScheduleTime());
+        System.out.println("Finished running RR at " + RR1.getScheduleTime());
         System.out.println("Total context-switch time: " + RR1.getContextSwitchTime());
         double withContextSwitchtime = RR1.getScheduleTime() + RR1.getContextSwitchTime(); 
         System.out.println("Finished running RR at " + withContextSwitchtime + " with context-switch time included.");
