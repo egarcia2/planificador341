@@ -29,7 +29,6 @@ public class Lottery_Priority{
             double runtime = jobi.getRunTime();
             totalRun += runtime;
         }
-        System.out.println("total runtime: " + totalRun);
 
         //calc num tickets based on %runtime 
         for(int i = 0; i < tempJobList.size(); i++) {

@@ -18,8 +18,9 @@ To run all algorithms and view their metrics, after compiling, run: **java Plani
 To run algorithms independently, after compiling, run: **java (filename)** 
 
 ## Known Bugs/Limitations/Assumptions
-* Lottery_Priority: Due to the nature of this algorithm, we decided to assume that all jobs given would come in at 0. We were unsure of how to implement this algorithm since our current implementation distributes tickets to jobs in the very beginning. Having jobs come in at varying times would mess with the division of tickets we had previously done. Hence, all workloads tested for this algorithm only contain jobs with arrival times of 0. 
-* sortJobs: This is a method that we were planning on implementing to sort the jobs in our workload by arrival time. However, in the end we decided to sort the jobs ourselves in our testing cases since this really isn't part of the operating schedulers job, but rather part of our simulation. Hence, it was a design decision to do the sorting ourselves. 
+1. Lottery_Priority: Due to the nature of this algorithm, we decided to assume that all jobs given would come in at 0. We were unsure of how to implement this algorithm since our current implementation distributes tickets to jobs in the very beginning. Having jobs come in at varying times would mess with the division of tickets we had previously done. Hence, all workloads tested for this algorithm only contain jobs with arrival times of 0. 
+2. sortJobs: This is a method that we were planning on implementing to sort the jobs in our workload by arrival time. However, in the end we decided to sort the jobs ourselves in our testing cases since this really isn't part of the operating schedulers job, but rather part of our simulation. Hence, it was a design decision to do the sorting ourselves. 
+3.  
 
 
 ## Tests in Planificador 

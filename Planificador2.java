@@ -1,59 +1,46 @@
 /**
 Planificador runs scheduling algorithms on certain jobs.
-
  */
 
 import java.util.*;
 
-public class Planificador {
+public class Planificador2 {
 
     public static void main (String[] args){
-        ArrayList<Job> workload1 = new ArrayList<Job>(5);
+        ArrayList<Job> workload2 = new ArrayList<Job>(5);
 
-        workload1.add(new Job(10, 0, false, 0, 3)); 
-        workload1.add(new Job(8, 0, false, 0, 2)); 
-        workload1.add(new Job(6, 0, false, 0, 2)); 
-        workload1.add(new Job(4, 0, false, 0, 6));
-        workload1.add(new Job(2, 0, false, 0, 1));
+        workload2.add(new Job(20, 0, false, 0, 3)); 
+        workload2.add(new Job(16, 0, false, 0, 2)); 
+        workload2.add(new Job(3, 4, false, 0, 2)); 
+        workload2.add(new Job(17, 10, false, 0, 6));
+        workload2.add(new Job(30, 12, false, 0, 1));
 
-        Fifo fifo1 = new Fifo(workload1);
+        
+        Fifo fifo1 = new Fifo(workload2);
         System.out.println("---- RUNNING FIFO ----");
         System.out.println();
         fifo1.run();
 
-        SJF SJF1 = new SJF(workload1);
+        SJF SJF1 = new SJF(workload2);
         System.out.println();
         System.out.println("---- RUNNING SJF ----");
         System.out.println();
         SJF1.run();
 
-        RR RR1 = new RR(workload1, 4);
+        RR RR1 = new RR(workload2, 10);
         System.out.println();
         System.out.println("---- RUNNING RR ----");
         RR1.run();
 
-        ArrayList<Job> workload2 = new ArrayList<Job>(5); // Workload is the same as above. New ArrayList object created due to referencing issues. See bugs/limitations #3 in README. 
-
-        workload2.add(new Job(10, 0, false, 0, 3)); 
-        workload2.add(new Job(8, 0, false, 0, 2)); 
-        workload2.add(new Job(6, 0, false, 0, 2)); 
-        workload2.add(new Job(4, 0, false, 0, 6));
-        workload2.add(new Job(2, 0, false, 0, 1));
-
-        Lottery_Priority LottPrior1 = new Lottery_Priority(workload2, 2);
-        System.out.println();
-        System.out.println("---- RUNNING LOTTERY PRIORITY ----");
-        LottPrior1.run();
-
         ArrayList<Job> workload3 = new ArrayList<Job>(5); // Workload is the same as above. New ArrayList object created due to referencing issues. See bugs/limitations #3 in README. 
 
-        workload3.add(new Job(10, 0, false, 0, 3)); 
-        workload3.add(new Job(8, 0, false, 0, 2)); 
-        workload3.add(new Job(6, 0, false, 0, 2)); 
-        workload3.add(new Job(4, 0, false, 0, 6));
-        workload3.add(new Job(2, 0, false, 0, 1));
+        workload3.add(new Job(20, 0, false, 0, 3)); 
+        workload3.add(new Job(16, 0, false, 0, 2)); 
+        workload3.add(new Job(3, 4, false, 0, 2)); 
+        workload3.add(new Job(17, 10, false, 0, 6));
+        workload3.add(new Job(30, 12, false, 0, 1));
 
-        MLFQ MLFQ1 = new MLFQ(workload3, 2, 20);
+        MLFQ MLFQ1 = new MLFQ(workload3, 4, 50);
         System.out.println();
         System.out.println("---- RUNNING MLFQ ----");
         MLFQ1.run();
@@ -81,19 +68,12 @@ public class Planificador {
         System.out.println("The average response time for this workload is: " + RR1.getResponseTime()); 
         System.out.println("The average turnaround time for this workload is: " + RR1.getTurnaroundTime() + "\n"); 
 
-
-        System.out.println("\n" + "Finished running Lottery_Priority at " + LottPrior1.getScheduleTime());
-        System.out.println("Total context-switch time: " + LottPrior1.getContextSwitchTime());
-        double withContextSwitchtime3 = LottPrior1.getScheduleTime() + LottPrior1.getContextSwitchTime(); 
-        System.out.println("Finished running Lottery_Priority at " + withContextSwitchtime3 + " with context-switch time included.");
-        System.out.println("The average response time for this workload is: " + LottPrior1.getResponseTime()); 
-        System.out.println("The average turnaround time for this workload is: " + LottPrior1.getTurnaroundTime() + "\n"); 
-
         System.out.println("\n" + "Finished running MLFQ at " + MLFQ1.getScheduleTime());
         System.out.println("Total context-switch time: " + MLFQ1.getContextSwitchTime());
         double withContextSwitchtime4 = MLFQ1.getScheduleTime() + MLFQ1.getContextSwitchTime(); 
         System.out.println("Finished running MLFQ at " + withContextSwitchtime4 + " with context-switch time included.");
         System.out.println("The average response time for this workload is: " + MLFQ1.getResponseTime()); 
         System.out.println("The average turnaround time for this workload is: " + MLFQ1.getTurnaroundTime() + "\n"); 
+         
     }
 }

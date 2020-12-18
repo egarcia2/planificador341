@@ -163,6 +163,7 @@ public class MLFQ{
                 
             }
         }
+        System.out.println("total runtime: " + clock1.getTime()); 
     }
 
     public double getScheduleTime(){
@@ -192,28 +193,15 @@ public class MLFQ{
     }
 
     public static void main (String[] args) {
-        // ArrayList<Job> jobArray = new ArrayList<Job>(5);
+        ArrayList<Job> workload1 = new ArrayList<Job>(5);
 
-        // jobArray.add(new Job(10, 0, false, 0, 3)); 
-        // jobArray.add(new Job(8, 0, false, 0, 2)); 
-        // jobArray.add(new Job(6, 0, false, 0, 2)); 
-        // jobArray.add(new Job(4, 0, false, 0, 6));
-        // jobArray.add(new Job(2, 0, false, 0, 1));
+        workload1.add(new Job(10, 0, false, 0, 3)); 
+        workload1.add(new Job(8, 0, false, 0, 2)); 
+        workload1.add(new Job(6, 0, false, 0, 2)); 
+        workload1.add(new Job(4, 0, false, 0, 6));
+        workload1.add(new Job(2, 0, false, 0, 1));
 
-        // MLFQ badname = new MLFQ(jobArray, 2, 20);
-        // badname.run();
-
-
-
-        ArrayList<Job> jobArray = new ArrayList<Job>(5);
-
-        jobArray.add(new Job(10, 0, false, 0, 3)); 
-        jobArray.add(new Job(8, 0, false, 0, 2)); 
-        jobArray.add(new Job(6, 4, false, 0, 2)); 
-        jobArray.add(new Job(4, 10, false, 0, 6));
-        jobArray.add(new Job(2, 12, false, 0, 1));
-
-        MLFQ MLFQ1 = new MLFQ(jobArray, 2, 20);
+        MLFQ MLFQ1 = new MLFQ(workload1, 2, 20);
         MLFQ1.run();
 
         System.out.println("\n" + "Finished running MLFQ at " + MLFQ1.getScheduleTime());
@@ -222,5 +210,24 @@ public class MLFQ{
         System.out.println("Finished running MLFQ at " + withContextSwitchtime + " with context-switch time included.");
         System.out.println("The average response time for this workload is: " + MLFQ1.getResponseTime()); 
         System.out.println("The average turnaround time for this workload is: " + MLFQ1.getTurnaroundTime() + "\n"); 
+
+
+        ArrayList<Job> workload2 = new ArrayList<Job>(5);
+
+        workload2.add(new Job(20, 0, false, 0, 3)); 
+        workload2.add(new Job(16, 0, false, 0, 2)); 
+        workload2.add(new Job(3, 4, false, 0, 2)); 
+        workload2.add(new Job(17, 10, false, 0, 6));
+        workload2.add(new Job(30, 12, false, 0, 1));
+
+        MLFQ MLFQ2 = new MLFQ(workload2, 4, 50);
+        MLFQ2.run();
+
+        System.out.println("\n" + "Finished running MLFQ at " + MLFQ2.getScheduleTime());
+        System.out.println("Total context-switch time: " + MLFQ2.getContextSwitchTime());
+        double withContextSwitchtime1 = MLFQ2.getScheduleTime() + MLFQ2.getContextSwitchTime(); 
+        System.out.println("Finished running MLFQ at " + withContextSwitchtime1 + " with context-switch time included.");
+        System.out.println("The average response time for this workload is: " + MLFQ2.getResponseTime()); 
+        System.out.println("The average turnaround time for this workload is: " + MLFQ2.getTurnaroundTime() + "\n"); 
     }
 }

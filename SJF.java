@@ -28,7 +28,7 @@ public class SJF{
     }
 
     public void run() {
-        ArrayList<Job> tempJobList = joblist;
+        ArrayList<Job> tempJobList = new ArrayList<Job> (joblist);
         clock1.setTime(tempJobList.get(0).getArrivalTime());
          
         Job firstJob = tempJobList.get(0);
@@ -36,7 +36,7 @@ public class SJF{
         int i = 0; 
         double currentRuntime = firstJob.getRunTime();
         
-        while(firstJob.getArrivalTime() == tempJobList.get(i).getArrivalTime()) {
+        while((i < tempJobList.size()) && (firstJob.getArrivalTime() == tempJobList.get(i).getArrivalTime())) {
             if (tempJobList.get(i).getRunTime() <= currentRuntime) {
                 currentRuntime = tempJobList.get(i).getRunTime(); 
                 shortestJob = tempJobList.get(i); 
@@ -94,15 +94,15 @@ public class SJF{
     }
 
     public static void main (String[] args) {
-        ArrayList<Job> jobArray = new ArrayList<Job>(5);
+        ArrayList<Job> workload = new ArrayList<Job>(5);
 
-        jobArray.add(new Job(5, 2, false, 0)); // maybe 3, 12
-        jobArray.add(new Job(4, 2, false, 0)); //1, 6
-        jobArray.add(new Job(1, 3, false, 0)); //2, 7
-        jobArray.add(new Job(5, 3, false, 0)); //5, 18
-        jobArray.add(new Job(1, 10, false, 0)); //4, 13
+        workload.add(new Job(5, 2, false, 0)); // maybe 3, 12
+        workload.add(new Job(4, 2, false, 0)); //1, 6
+        workload.add(new Job(1, 3, false, 0)); //2, 7
+        workload.add(new Job(5, 3, false, 0)); //5, 18
+        workload.add(new Job(1, 10, false, 0)); //4, 13
 
-        SJF SJF1 = new SJF(jobArray);
+        SJF SJF1 = new SJF(workload);
         SJF1.run();
 
 
